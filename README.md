@@ -35,6 +35,6 @@ The original ground-arena source remains in `game-v1.js`; the active game is `sp
 
 ## Story mission
 
-Secure the first six relay worlds, Verdant Echo through Pelagic Blue. Each now has a guardian in its final wave. Once all six are secured, open the map from any secured orbit and choose Transmit final signal. A six-second arrival animation reveals the Null Sovereign; your hull and nova are restored before this fight. The Sovereign enters faster-firing overdrive below half health. Defeat it for an animated story ending and saved victory, then optionally keep exploring. Other worlds are optional. A failed or interrupted final fight can be summoned again; the boss's health resets. Existing secured relay worlds count toward the mission.
+Secure all 96 worlds. Every fourth world has a guardian in its final wave. Once all 96 are secured, open the map from any secured orbit and choose Transmit final signal. A six-second arrival animation reveals the Null Sovereign; your hull and nova are restored before this fight. The Sovereign enters faster-firing overdrive below half health. Defeat it for an animated story ending and saved victory, then optionally keep exploring. A failed or interrupted final fight can be summoned again; the boss's health resets. Existing secured worlds count toward the mission.
 
 The orbital workshop also offers ion engines (flight speed), rapid-fire coils (firing rate), and nova reactors (damage, range, and recharge). All upgrades are saved.
