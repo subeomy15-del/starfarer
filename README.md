@@ -32,3 +32,9 @@ Captured-mouse turning is smoothed, with less sensitivity while firing at a lock
 HDR bloom lighting, animated detailed alien models, moving cloud layers, procedural shaded planets, atmospheres, banded gas giants, lava worlds, icy moons, rings, an instanced asteroid belt, a procedural nebula, distant stars, a detailed chase-camera ship, engine glow, cruise streaks, and a scanner. Three.js is bundled under its MIT license in `vendor/`.
 
 The original ground-arena source remains in `game-v1.js`; the active game is `space.js`.
+
+## Story mission
+
+Secure the first six relay worlds, Verdant Echo through Pelagic Blue. Each now has a guardian in its final wave. Once all six are secured, open the map from any secured orbit and choose Transmit final signal. A six-second arrival animation reveals the Null Sovereign; your hull and nova are restored before this fight. The Sovereign enters faster-firing overdrive below half health. Defeat it for an animated story ending and saved victory, then optionally keep exploring. Other worlds are optional. A failed or interrupted final fight can be summoned again; the boss's health resets. Existing secured relay worlds count toward the mission.
+
+The orbital workshop also offers ion engines (flight speed), rapid-fire coils (firing rate), and nova reactors (damage, range, and recharge). All upgrades are saved.
