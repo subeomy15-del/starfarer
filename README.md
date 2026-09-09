@@ -7,7 +7,7 @@ This version is a continuous 3D space game. All 96 planets have physical locatio
 ## Flight
 
 - Launch or click the game to capture the mouse: move to turn, stop moving to stop turning. Escape releases the mouse and pauses. Arrow keys also steer and take priority. If capture is unavailable, screen-position steering is the fallback.
-- Hold W: forward thrust. Release to slow down. S: brake quickly.
+- Hold W: forward thrust. Hold S: reverse thrust. Release to slow down. Hold B: brake quickly; braking overrides thrust, cruise, and strafing and cancels autopilot.
 - A / D: strafe left / right. Q / R: descend / ascend relative to the ship.
 - Hold Shift: fast cruise, with automatic slowdown near planets.
 - F: toggle autopilot toward the selected planet. Steering keys cancel autopilot. Autopilot flies continuously, avoids intervening planets, and stops near the destination.
@@ -23,7 +23,7 @@ Approach an unsecured planet to encounter its alien fleet. Six species have dist
 
 Defeat all fleets around a planet to secure it, earn crystals, and restore some hull. Purchase stronger cannons and hull in the map. Hull repairs slowly outside combat. You can leave any encounter by flying away; an unfinished wave restarts when you return. Death relaunches you from the starting point with discoveries and upgrades preserved.
 
-Progress uses the same local browser save as the original game. Browser storage availability and using the same browser/profile affect persistence.
+Progress autosaves every five seconds, when pausing or leaving the page, and after rewards and upgrades. Use Save progress to save manually. Continue expedition restores your position, heading, destination, hull, and nova cooldown; crystals, upgrades, and secured worlds are preserved. Unfinished encounters restart when returning. Saves stay in this browser/profile on this site; they do not sync across devices or transfer from the offline game. Existing progress saves remain compatible.
 
 Captured-mouse turning is smoothed, with less sensitivity while firing at a locked target. Cannons predict target movement, and enemy brackets show health and distance.
 
