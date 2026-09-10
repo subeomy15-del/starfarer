@@ -46,7 +46,30 @@ function buildStationModules(){stationCrew=[];stationWalls=[];
  // A cupola with a broad view out into space.
  const windowPanel=stationPanel([0,3.6,183.5],[23,5,.08],0x7dbad4);windowPanel.material.setValues({transparent:true,opacity:.1,depthWrite:false});for(const x of [-8,0,8])stationPanel([x,3.6,183.2],[.18,5,.15],0x4e7188);const planet=makeMesh(new THREE.SphereGeometry(22,32,24),Campaign.universes[save.universe].color,groundRoot,new V(0,13,250));const cupolaSky=makeMesh(new THREE.SphereGeometry(65,24,16),0x030817,groundRoot,new V(0,8,230));cupolaSky.material.side=THREE.BackSide;planet.material.emissive.setHex(Campaign.universes[save.universe].color);planet.material.emissiveIntensity=.1;
  sign('HANGAR ← / COMMAND / LAB / CREW / MEDICAL →',groundRoot,[0,5.5,37],13).rotation.y=Math.PI;
+ buildStationVisuals();
  for(const profile of crewProfiles)spawnCrew(profile);
+}
+function buildStationVisuals(){
+ // Layered ceiling ribs, panoramic windows, and colored practicals give the Ark
+ // the scale and lived-in glow of a real orbital research station.
+ for(let z=38;z<178;z+=12){
+  const rib=detail('box',0x314b63,groundRoot,[0,6.42,z],[13.4,.14,.55]);
+  rib.material.emissive.setHex(0x17384e);
+  for(const x of [-5.4,5.4])detail('box',0xa9eaff,groundRoot,[x,6.22,z],[.16,.08,2.8],2);
+ }
+ for(const z of [52,68,92,108,136,152,174]){
+  const window=detail('box',0x173b61,groundRoot,[0,3.6,z],[11.2,3.8,.08]);
+  window.material.setValues({transparent:true,opacity:.3,depthWrite:false,roughness:.2,metalness:.5});
+  detail('box',0x8de7ff,groundRoot,[0,5.2,z-.08],[10.2,.08,.12],2);
+  detail('box',0xffc86f,groundRoot,[0,2.05,z-.08],[10.2,.06,.1],1);
+ }
+ for(const [x,z,color] of [[-17,18,0x74dfff],[17,18,0xffc276],[-14,66,0x7de7ff],[14,66,0xffb86e],[-43,100,0x75edc3],[35,100,0xc9a1ff],[-18,143,0xafffff],[18,143,0xff91b0]]){
+  const lamp=detail('sphere',color,groundRoot,[x,5.8,z],[.34,.12,.34],1.4);groundDecor.push(lamp);
+  const light=new THREE.PointLight(color,2.1,22,2);light.position.set(x,4.8,z);groundRoot.add(light);
+ }
+ const hub=detail('cylinder',0x233f57,groundRoot,[0,6.65,42],[3.8,.16,3.8]);hub.rotation.x=Math.PI/2;
+ const hubGlow=detail('cylinder',Campaign.universes[save.universe].color,groundRoot,[0,6.75,42],[2.8,.05,2.8],1.5);hubGlow.rotation.x=Math.PI/2;groundDecor.push(hubGlow);
+ sign('ARK CENTRAL SPINE / PRESSURE NOMINAL',groundRoot,[0,4.6,41],12);
 }
 function spawnCrew(profile){const root=new THREE.Group();root.position.set(profile.x,.12,profile.z);groundRoot.add(root);detail('box',profile.color,root,[0,1.13,0],[.57,.68,.32]);detail('box',0x294158,root,[0,.73,0],[.52,.22,.32]);for(const x of [-.17,.17]){detail('cylinder',0x334c61,root,[x,.4,0],[.12,.65,.12]);detail('box',0x1b2a38,root,[x,.1,.1],[.23,.18,.4]);}const arms=[];for(const x of [-.4,.4]){const arm=new THREE.Group();arm.position.set(x,1.35,0);root.add(arm);detail('cylinder',profile.color,arm,[0,-.23,0],[.12,.52,.12]);detail('sphere',profile.skin,arm,[0,-.57,0],[.11,.14,.1]);arms.push(arm);}const head=new THREE.Group();head.position.y=1.72;root.add(head);detail('sphere',profile.skin,head,[0,0,0],[.23,.27,.23]);detail('sphere',0x25303a,head,[0,.13,-.035],[.235,.18,.23]);for(const x of [-.08,.08])detail('sphere',0x182635,head,[x,.03,.209],[.027,.023,.015]);detail('box',0xd9f5ff,root,[.14,1.28,.173],[.13,.12,.03],.2);const label=sign(profile.name.toUpperCase(),groundRoot,[profile.x,2.55,profile.z],3.6);stationCrew.push({...profile,root,head,arms,label});groundObstacles.push({x:profile.x,z:profile.z,r:.48});}
 function closestCrew(){if(groundKind!=='station')return null;return stationCrew.filter(n=>n.root.position.distanceTo(walker)<3.8).sort((a,b)=>a.root.position.distanceToSquared(walker)-b.root.position.distanceToSquared(walker))[0]||null;}
