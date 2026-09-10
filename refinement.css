@@ -1,0 +1,46 @@
+/* Final presentation rules: neutral graphite, ivory type, muted status colors. */
+:root{--mint:#d4c8ad;--muted:#afb0a7}
+body:before{display:none}
+#hud{background:linear-gradient(#080b0d88,transparent 22%,transparent 75%,#080b0daa)}
+#hud header{flex-wrap:wrap;gap:12px;padding:18px 24px;background:#111518bb}
+.header-right{flex-wrap:wrap;justify-content:flex-end}
+.brand{font-size:16px;letter-spacing:3px}
+.brand span{color:#b8b5aa}
+button,.mapPanel,.dialog,.crewCard,.briefingCard,#stationDirectory{background:#1b2022;color:#e3dfd3;border-color:#b9b09b40;box-shadow:none}
+button:hover{background:#343a39}
+.primary{background:#d4c8ad;color:#171a19}
+.mapBody:before,#travel:before,#travel:after{display:none!important}
+.mapPanel{width:min(1560px,97vw);padding:24px;max-height:96vh}
+.mapBody{grid-template-columns:minmax(0,1fr) 315px;min-height:0;gap:20px}
+#planetGrid.spatialChart{position:relative;display:block;padding:0;overflow:auto;max-height:none;min-height:540px;background:#101618;border:1px solid #a89c7933;border-radius:4px;backdrop-filter:none}
+#planetGrid .starChart{position:relative;inset:auto;display:block;width:100%;height:auto;min-width:640px;min-height:500px}
+.chartGrid{stroke:#d8cfad0d;stroke-width:1}
+.chartNode .chartHalo{stroke:#ccc3a54a;fill:#101618;stroke-width:1}
+.chartNode.chartSelected .chartHalo{stroke:#eee6cd;fill:#3a3b31;stroke-width:2}
+.chartLabel{fill:#e1ddcf;font:12px Arial,sans-serif;letter-spacing:.3px}
+.chartSub{fill:#999e91;font:8px monospace}
+.chartNode{pointer-events:bounding-box;cursor:pointer}
+.chartNode:focus .chartHalo,.chartNode:hover .chartHalo{stroke:#fff;stroke-width:2}
+.selectedRoute{stroke:#d3c49d;stroke-width:1;stroke-dasharray:5 6}
+.chartLegend{font:9px monospace;line-height:1.8;letter-spacing:1px;padding:10px 16px;color:#b3b6a8;border-top:1px solid #c3b79426;margin:0}
+.mapBody>.dock{background:#191f21;border:0;border-radius:4px;padding:18px;box-shadow:none;max-height:72vh}
+.upgradeCard{display:grid;grid-template-columns:1fr auto;gap:8px;padding:13px!important;border-radius:3px}
+.upgradeCard small,.upgradeCard strong{grid-column:1/-1;color:#bfc1b5;line-height:1.6}
+.upgradeCard strong{font:10px monospace;color:#e1d4b4;letter-spacing:1px}
+.upgradeCard:disabled{opacity:.55}
+#coursePanel{border-bottom:1px solid #b9b09b40;margin-bottom:22px;padding-bottom:18px}
+#coursePanel #selection{margin-top:0;color:#e8dfca}
+#notice{background:#1b2022;color:#e5dfd0}
+#reticle,#reticle.locked,.enemyLabel.active .enemyBracket,#notice,#stationDirectory,#landButton.atmosphere-ready{box-shadow:none;animation:none;border-color:#c9c1a86b}
+#landButton.atmosphere-ready{background:#344036;color:#e5e2d2}
+#waypoint,#flightMode,#storyProgress,#lockInfo,#stationDirectory h3,#footAction,.eyebrow{color:#ddd5bf}
+.health i,.progress i{background:#bbc3a6!important;box-shadow:none}
+#travel,#travel.planet-entry,#travel:not(.planet-entry){background:linear-gradient(transparent 65%,#111719);border-color:#111}
+#travelLabel{color:#e3ddc9;font-size:12px;letter-spacing:2px}
+.travelLine{background:#c8bfaa}
+#descentHud{position:fixed;left:24px;bottom:28px;z-index:55;max-width:650px;padding:22px 26px;background:#111719e8;border-left:3px solid #d9c6a0;color:#eee9dc}
+#descentHud[hidden]{display:none}
+#descentHud h2{font:34px monospace;margin:12px 0}
+#descentHud small{font:12px monospace;color:#b3b5aa}
+#descentHud p{color:#c4c5bb;font-size:12px;margin:8px 0}
+@media(max-width:1000px){.mapBody{grid-template-columns:1fr}.mapBody>.dock{max-height:none}#planetGrid.spatialChart{min-height:400px}.header-right{gap:5px}#hud header{padding:12px}.location{top:135px}.mission{top:140px}}
