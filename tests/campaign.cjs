@@ -1,0 +1,9 @@
+const assert=require('node:assert/strict');const Campaign=require('../campaign.js');
+let save=Campaign.restore({credits:400,weapon:4,shield:2,cleared:Array.from({length:96},(_,i)=>i),storyComplete:true});
+assert.equal(save.universe,0);assert.equal(save.credits,400);assert.equal(save.weapon,4);assert.equal(save.cleared.length,96);assert.equal(save.storyComplete,false);assert(Campaign.ready(save));
+for(let u=0;u<6;u++){assert.equal(save.universe,u);save.cleared=save.cleared.filter(id=>id<u*24);for(let i=0;i<23;i++)save.cleared.push(u*24+i);assert.equal(Campaign.ready(save),false);assert.equal(Campaign.victory(save),false);save.cleared.push(u*24+23);assert(Campaign.ready(save));assert(Campaign.victory(save));save=Campaign.restore(JSON.parse(JSON.stringify(save)));assert.equal(save.bosses.length,u+1);assert.equal(save.storyComplete,u===5);}
+assert.equal(save.cleared.length,144);assert.equal(save.universe,5);assert.equal(Campaign.victory(save),false);
+const legacy=Campaign.restore({cleared:[0,0,999,-1,'1'],rapid:99,universe:5});assert.deepEqual(legacy.cleared,[0]);assert.equal(legacy.universe,0);assert.equal(legacy.rapid,8);assert.equal(legacy.engine,1);
+assert(Campaign.collect(legacy,0,0,'alloy'));assert.equal(Campaign.collect(legacy,0,0,'alloy'),false);assert.equal(Campaign.collect(legacy,1,0,'alloy'),false);assert.equal(Campaign.collect(legacy,0,8,'alloy'),false);assert.equal(legacy.inventory.alloy,1);assert.equal(legacy.credits,20);const reloaded=Campaign.restore(JSON.parse(JSON.stringify(legacy)));assert.equal(reloaded.inventory.alloy,1);assert.equal(Campaign.collect(reloaded,0,0,'alloy'),false);
+assert.equal(Campaign.restore(null).universe,0);assert.equal(Campaign.restore({credits:Infinity}).credits,0);
+console.log('PASS: legacy save migration, 6 × 24 worlds, sequential gates, final victory, collectible rewards and persistence.');

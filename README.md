@@ -1,40 +1,51 @@
-# STARFARER — The Open Universe
+# STARFARER — The Six Gates
 
-Open `index.html` in a desktop browser. No installation or internet needed; requires WebGL and a keyboard/mouse.
+A desktop 3D exploration game with six universes, 24 planets per universe (144 total), walkable bases and landing sites, orbital combat, collectibles, five ship upgrade types, and six universe guardians.
 
-This version is a continuous 3D space game. All 96 planets have physical locations: fly around them, through the asteroid belt, and between worlds without loading screens. The map sets a destination and never teleports the ship. This is a fictional star system, not an astronomical scale simulation. Planet surfaces are solid boundaries; combat and exploration take place in space.
+Play at https://subeomy15-del.github.io/starfarer/ or serve this folder with `python3 -m http.server 8765`. No build step or external game assets are required. Uses the bundled Three.js under its MIT license. Requires WebGL and a keyboard/mouse.
 
-## Flight
+## The expedition
 
-- Launch or click the game to capture the mouse: move to turn, stop moving to stop turning. Escape releases the mouse and pauses. Arrow keys also steer and take priority. If capture is unavailable, screen-position steering is the fallback.
-- Hold W: forward thrust. Hold S: reverse thrust. Release to slow down. Hold B: brake quickly; braking overrides thrust, cruise, and strafing and cancels autopilot.
-- A / D: strafe left / right. Q / R: descend / ascend relative to the ship.
-- Hold Shift: fast cruise, with automatic slowdown near planets.
-- F: toggle autopilot toward the selected planet. Steering keys cancel autopilot. Autopilot flies continuously, avoids intervening planets, and stops near the destination.
-- M: map, destination selection, and upgrades.
-- Escape: pause. Switching windows also pauses.
+Every session and rescue begins on foot at your universe's Ark station. Read the opening chapter, walk down the lit hangar path, approach the Kestrel, and press **E** to board. The ship lifts off and exits the station in a short launch animation.
 
-## Combat
+Use the map to choose one of the universe's 24 planets. Defeat all orbital waves to secure a world; every fourth planet has a guardian fleet. Once the orbit is clear, approach within 650 m of the planet surface, slow below 120 m/s, and press **L** to land. Each planet has a generated, bounded landing region with terrain, vegetation or crystals, ruins, and eight collectible items. Exploration takes place on these landing sites rather than across the entire planetary sphere. Walk to glowing items and press **E** to collect alloy, crystals, and relics. They grant upgrade credits immediately; the workshop also accepts item trades. Collected items do not respawn.
 
-Approach an unsecured planet to encounter its alien fleet. Six species have distinct movement and attacks. Every fourth world has a guardian; later worlds are harder. Aim toward enemies: the reticle glows cyan when your cannons lock onto a nearby target in front of you.
+Walk back to your ship and press **E** to return to orbit. **H** plots a course to the physical Ark station; **F** engages autopilot. Press **L** within 650 m of the station to dock, repair, and walk around the hangar again. Hostile fleets block landing and docking.
 
-- Hold left click or Space: fire twin plasma cannons.
-- E: nova pulse damages nearby enemies and clears hostile shots (14-second cooldown).
+Secure all 24 planets in the current universe, then summon its guardian from the map while in a secured orbit. A rift arrival animation introduces the boss. Defeat it to teleport to the next universe's base with progress, inventory, and upgrades intact. The sixth guardian is the Null Sovereign: its defeat ends the story with all 144 worlds freed. A failed or interrupted boss encounter can be attempted again.
 
-Defeat all fleets around a planet to secure it, earn crystals, and restore some hull. Purchase stronger cannons and hull in the map. Hull repairs slowly outside combat. You can leave any encounter by flying away; an unfinished wave restarts when you return. Death relaunches you from the starting point with discoveries and upgrades preserved.
+## Controls
 
-Progress autosaves every five seconds, when pausing or leaving the page, and after rewards and upgrades. Use Save progress to save manually. Continue expedition restores your position, heading, destination, hull, and nova cooldown; crystals, upgrades, and secured worlds are preserved. Unfinished encounters restart when returning. Saves stay in this browser/profile on this site; they do not sync across devices or transfer from the offline game. Existing progress saves remain compatible.
+| Key | In flight | On foot |
+| --- | --- | --- |
+| W / S | Forward / reverse | Forward / backward |
+| A / D | Strafe | Strafe |
+| Mouse / arrows | Steer | Look |
+| Shift | Cruise | Run |
+| Space | Fire | Jump |
+| E | Nova pulse | Board ship / collect item |
+| B | Brake (overrides thrust, strafe, cruise, autopilot) | — |
+| Q / R | Descend / ascend | — |
+| F | Toggle autopilot | — |
+| H | Plot course to base | — |
+| L | Land / dock | — |
+| M | Map and workshop | Map and workshop |
+| Escape | Pause | Pause |
 
-Captured-mouse turning is smoothed, with less sensitivity while firing at a locked target. Cannons predict target movement, and enemy brackets show health and distance.
+Click the scene to capture the mouse. Arrow keys remain available if capture is blocked. Losing focus pauses flight and walking.
 
-## Graphics
+## Upgrades and saves
 
-HDR bloom lighting, animated detailed alien models, moving cloud layers, procedural shaded planets, atmospheres, banded gas giants, lava worlds, icy moons, rings, an instanced asteroid belt, a procedural nebula, distant stars, a detailed chase-camera ship, engine glow, cruise streaks, and a scanner. Three.js is bundled under its MIT license in `vendor/`.
+Plasma cannons increase damage, hull plating increases health, ion engines increase manual flight speed, rapid-fire coils increase firing rate, and nova reactors increase damage/range while shortening recharge. All five have eight levels.
 
-The original ground-arena source remains in `game-v1.js`; the active game is `space.js`.
+Progress saves every five seconds while playing, after rewards and purchases, on pause, and when leaving the page. There is also a Save progress button. Saves include cleared worlds, defeated universe guardians, unlocked universe, credits, inventory, collected items, and upgrades. Sessions always restart at the base; unfinished encounters restart. Saves are local to the same browser/profile and site, not synced across devices.
 
-## Story mission
+Older 96-world saves retain their secured world IDs, credits, and upgrades, distributed over the first four universes. Universe guardians must be defeated in order to open the gates. The old single-boss victory flag does not skip this new campaign.
 
-Secure all 96 worlds. Every fourth world has a guardian in its final wave. Once all 96 are secured, open the map from any secured orbit and choose Transmit final signal. A six-second arrival animation reveals the Null Sovereign; your hull and nova are restored before this fight. The Sovereign enters faster-firing overdrive below half health. Defeat it for an animated story ending and saved victory, then optionally keep exploring. A failed or interrupted final fight can be summoned again; the boss's health resets. Existing secured worlds count toward the mission.
+## Verification
 
-The orbital workshop also offers ion engines (flight speed), rapid-fire coils (firing rate), and nova reactors (damage, range, and recharge). All upgrades are saved.
+Run `node tests/campaign.cjs` and `node tests/flight-save.cjs` for campaign/save and flight regression checks. `tests/browser-journey.cjs` exercises walking, boarding, combat-gated landing, loot, docking, saves, all six boss transitions, and the ending in Chrome. `tests/browser-surfaces.cjs` checks all six surface styles, pause/resume, item trading, and upgrades. Both use `playwright-core` supplied via `PLAYWRIGHT_MODULE`, an installed browser via `CHROME_PATH`, and a local server via `STARFARER_URL` (defaults documented in the script).
+
+## Visuals
+
+HDR bloom, soft ground shadows, detailed terrain shaders, instanced rocks and foliage, alien ruins, floating collectibles, atmospheric fog, shaded ringed sky planets, animated engines, station runway lights and architecture, procedural space nebulae, planet clouds and atmospheres, and cinematic docking/launch/gate sequences. Only the active universe's planets are rendered.
