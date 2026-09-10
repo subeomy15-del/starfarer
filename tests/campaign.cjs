@@ -7,3 +7,5 @@ const legacy=Campaign.restore({cleared:[0,0,999,-1,'1'],rapid:99,universe:5});as
 assert(Campaign.collect(legacy,0,0,'alloy'));assert.equal(Campaign.collect(legacy,0,0,'alloy'),false);assert.equal(Campaign.collect(legacy,1,0,'alloy'),false);assert.equal(Campaign.collect(legacy,0,8,'alloy'),false);assert.equal(legacy.inventory.alloy,1);assert.equal(legacy.credits,20);const reloaded=Campaign.restore(JSON.parse(JSON.stringify(legacy)));assert.equal(reloaded.inventory.alloy,1);assert.equal(Campaign.collect(reloaded,0,0,'alloy'),false);
 assert.equal(Campaign.restore(null).universe,0);assert.equal(Campaign.restore({credits:Infinity}).credits,0);
 console.log('PASS: legacy save migration, 6 × 24 worlds, sequential gates, final victory, collectible rewards and persistence.');
+
+const recovery=Campaign.restore({pendingWake:true,crewClaims:['0:medical','0:medical','1:research','9:medical','invalid']});assert.equal(recovery.pendingWake,true);assert.deepEqual(recovery.crewClaims,['0:medical','1:research']);console.log('PASS: crossing recovery and crew reward migration.');
