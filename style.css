@@ -22,3 +22,14 @@ header{padding:20px 28px}.brand{font-size:19px}.header-right{gap:8px}.header-rig
 #travel:not(.planet-entry):before{content:'';position:absolute;left:50%;bottom:-12vh;width:34vw;height:34vw;transform:translateX(-50%);border-radius:50%;border:1px solid #b9f3ff66;box-shadow:0 0 80px #62d9ff55,inset 0 0 60px #74dfff33;animation:launchRing 4.5s ease-out forwards}
 #travel:not(.planet-entry):after{content:'AIRLOCK PRESSURE / NOMINAL';position:absolute;left:50%;top:34%;transform:translateX(-50%);font:10px monospace;letter-spacing:3px;color:#bceeff;animation:launchReadout 4.5s linear forwards}
 @keyframes launchRing{0%{opacity:0;scale:.2}25%{opacity:1}100%{opacity:0;scale:2.6;bottom:120%}}@keyframes launchReadout{0%{content:'AIRLOCK PRESSURE / NOMINAL'}32%{content:'HANGAR DOORS / OPEN'}68%{content:'ASCENT PROFILE / CLEARED'}100%{content:'ORBITAL INSERTION / COMPLETE'}}
+
+/* Cinematic presentation layer: keeps the world rich while leaving controls clear. */
+body:before{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 48%,#0008 100%),linear-gradient(115deg,#6ad9ff08,transparent 38%,#ff9b6b0a)}
+#hud{z-index:2}
+#hud header{background:linear-gradient(180deg,#020711bb,transparent);border-bottom:1px solid #a6efff12}
+.location,.mission,#flightReadout,#radar{filter:drop-shadow(0 6px 16px #0009)}
+.mission{background:linear-gradient(90deg,#04101c22,#04101c88);padding-top:10px;padding-bottom:10px;border-radius:0 10px 10px 0}
+#notice{box-shadow:0 14px 50px #0009,0 0 28px #73dcff18}
+.mapPanel,.dialog,.briefingCard,.crewCard{box-shadow:0 26px 100px #000b,0 0 0 1px #9deaff0b inset}
+#stationDirectory{box-shadow:0 18px 60px #000b,0 0 30px #5ccfff12;backdrop-filter:blur(14px)}
+#footHint{filter:drop-shadow(0 -10px 26px #0009)}
