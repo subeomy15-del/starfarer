@@ -53,4 +53,4 @@ Run `node tests/campaign.cjs` and `node tests/flight-save.cjs` for campaign/save
 
 ## Visuals
 
-HDR bloom, soft ground shadows, detailed terrain shaders, instanced rocks and foliage, alien ruins, floating collectibles, atmospheric fog, shaded ringed sky planets, animated engines, station runway lights and architecture, procedural space nebulae, planet clouds and atmospheres, and cinematic docking/launch/gate sequences. Only the active universe's planets are rendered.
+HDR bloom, soft ground shadows, detailed terrain shaders, instanced rocks and foliage, biome-specific horizon veils and floating spores, alien ruins, floating collectibles, atmospheric fog, shaded ringed sky planets, animated engines, station runway lights and architecture, procedural space nebulae, planet clouds and atmospheres, and cinematic docking/launch/gate sequences. Planet landing now includes an orbital insertion, thermal-load readout, entry shield effect, camera banking, terrain lock, and guided touchdown. Station departure shows airlock pressure, hangar doors, ascent, and orbital-insertion stages. Only the active universe's planets are rendered.
