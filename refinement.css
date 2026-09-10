@@ -31,6 +31,13 @@ button:hover{background:#343a39}
 #coursePanel{border-bottom:1px solid #b9b09b40;margin-bottom:22px;padding-bottom:18px}
 #coursePanel #selection{margin-top:0;color:#e8dfca}
 #notice{background:#1b2022;color:#e5dfd0}
+#contractPanel{margin-top:18px;padding:15px 0 0;border-top:1px solid #c5b89335;display:grid;gap:6px}
+#contractPanel .contractKicker{font:9px monospace;letter-spacing:2px;color:#baa982}
+#contractPanel strong{font:15px Arial,sans-serif;color:#ece7d9;font-weight:500}
+#contractPanel small{color:#aeb1a7;font-size:11px;line-height:1.5}
+#contractPanel em{font:9px monospace;color:#c8b990;font-style:normal}
+.contractBar{height:4px;background:#aaa58e22;border-radius:3px;overflow:hidden;margin-top:4px}.contractBar i{display:block;height:100%;background:#b8c39b;transition:width .3s}
+#contractPanel.complete{border-color:#b8c39b88}.complete .contractBar i{background:#d5bd7d}
 #reticle,#reticle.locked,.enemyLabel.active .enemyBracket,#notice,#stationDirectory,#landButton.atmosphere-ready{box-shadow:none;animation:none;border-color:#c9c1a86b}
 #landButton.atmosphere-ready{background:#344036;color:#e5e2d2}
 #waypoint,#flightMode,#storyProgress,#lockInfo,#stationDirectory h3,#footAction,.eyebrow{color:#ddd5bf}

@@ -18,6 +18,21 @@ renderStory=function(){
 };
 const originalFinishStory=finishStory;
 finishStory=function(){originalFinishStory();if(mode==='ending'&&save.storyComplete){$('cinematicTitle').textContent='The passengers choose home.';$('cinematicText').textContent='The Sovereign falls silent. Mika transmits the all-clear through the restored relays. One by one, the evacuation ships answer. Mara calls the Ark: “Vale? Leave a light on.” For the first time in years, the gates open from both sides.';$('victory').querySelector('h2').textContent='Leave a light on.';}};
+
+const contractTypes=[
+ {id:'secure',title:'SECURE A WORLD',description:'Clear one hostile orbit and unlock its atmosphere.',progress:()=>securedWorldCount(),goal:1,reward:180},
+ {id:'salvage',title:'BRING BACK A RELIC',description:'Land on a secured world and recover its golden relic.',progress:()=>save.inventory.relic,goal:1,reward:240},
+ {id:'upgrade',title:'TUNE THE KESTREL',description:'Install one ship upgrade in the station workshop.',progress:()=>Math.max(save.weapon,save.shield,save.engine,save.rapid,save.nova)-1,goal:1,reward:220}
+];
+function contractForToday(){const day=Math.floor(Date.now()/86400000);return contractTypes[(day+save.universe)%contractTypes.length];}
+function updateContract(){
+ let node=$('contractPanel');if(!node){node=document.createElement('div');node.id='contractPanel';document.querySelector('.mission').append(node);}
+ const c=contractForToday(),key='contract:'+save.universe+':'+c.id+':'+Math.floor(Date.now()/86400000),done=save.storyLog.includes(key),value=Math.min(c.goal,c.progress());
+ if(value>=c.goal&&!done){const prior=save.storyLog.filter(x=>x.startsWith('contract:')).length;const bonus=1+Math.min(4,prior)*.1;const payout=Math.round(c.reward*bonus);save.credits+=payout;save.storyLog.push(key);persist();toast(`Contract complete · +◈ ${payout} · streak x${bonus.toFixed(1)}`);}
+ node.innerHTML='<span class="contractKicker">TODAY’S CONTRACT</span><strong>'+c.title+'</strong><small>'+c.description+'</small><div class="contractBar"><i style="width:'+(value/c.goal*100)+'%"></i></div><em>'+(done||value>=c.goal?'COMPLETE · RETURN TOMORROW':value+' / '+c.goal+' · ◈ '+c.reward+' base reward')+'</em>';
+ node.classList.toggle('complete',done||value>=c.goal);
+}
+setInterval(updateContract,1000);setTimeout(updateContract,500);
 // Surface flight uses the same terrain and landed ship as exploration.
 let descentVelocity=new V(),descentReturn='',descentHelp=null;
 function launchSequenceTick(dt){
