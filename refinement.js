@@ -1,4 +1,5 @@
 'use strict';
+lightShip(shipModel);lightShip(transitShip);if(parkedShip)lightShip(parkedShip);
 const recoveredChapters=[
  ['The last passenger','The recorder contains a departure list, not a weapon schematic. Hundreds of names. One is circled: Mara Vale. Commander Vale goes silent on the radio. “My sister was on the last transport. They told me the gates were empty.” The crew now has someone to find.'],
  ['The shelter protocol','Beneath the ice, a transmitter is still counting heartbeats. Noor decodes its instructions: SEAL THE GATES. PRESERVE THE PASSENGERS. The guardians were built to protect the evacuation. Something kept renewing an emergency that should have ended years ago.'],
@@ -88,11 +89,11 @@ decorateWorkshop=function(){
 // Neutral materials and broadleaf canopies provide form without emissive decoration.
 const originalSurfaceWorld=surfaceWorld;
 const originalStationWorld=stationWorld;
-stationWorld=function(){originalStationWorld();groundRoot.traverse(o=>{if(o.isSprite)o.visible=false;for(const m of Array.isArray(o.material)?o.material:[o.material]){if(!m)continue;if(m.emissive)m.emissive.setHex(0);if(m.color&&o.isMesh){const hsl={};m.color.getHSL(hsl);m.color.setHSL(hsl.h,hsl.s*.22,hsl.l);}}if(o.isPointLight)o.color.setHex(0xffe9c9);});};
+stationWorld=function(){originalStationWorld();lightShip(parkedShip);groundRoot.traverse(o=>{if(o.isSprite&&!o.userData.practicalLight)o.visible=false;if(o.userData.practicalLight)return;for(const m of Array.isArray(o.material)?o.material:[o.material]){if(!m)continue;if(m.emissive)m.emissive.setHex(0);if(m.color&&o.isMesh){const hsl={};m.color.getHSL(hsl);m.color.setHSL(hsl.h,hsl.s*.22,hsl.l);}}if(o.isPointLight)o.color.setHex(0xffe9c9);});};
 surfaceWorld=function(p){
- originalSurfaceWorld(p);groundAmbient.color.setHex(0xd9e0d4);groundAmbient.groundColor.setHex(0x49483d);groundAmbient.intensity=1.5;
+ originalSurfaceWorld(p);lightShip(parkedShip);groundAmbient.color.setHex(0xd9e0d4);groundAmbient.groundColor.setHex(0x49483d);groundAmbient.intensity=1.5;
  groundScene.background.setHex([0xb6c6c1,0xbecad0,0x8b8178,0x9d9da8,0xcbbd9f,0x9fbdc1][p.id%6]);groundScene.fog.color.copy(groundScene.background);groundScene.fog.density=.0032;
- groundRoot.traverse(o=>{if(o.isSprite)o.visible=false;if(o.material?.emissive)o.material.emissive.setHex(0);if(o.isInstancedMesh&&o.count===280)o.material.color.setHex(0x77766b);if(o.isInstancedMesh&&o.count===220&&(p.id%6===0||p.id%6===5))o.visible=false;});
+ groundRoot.traverse(o=>{if(o.isSprite&&!o.userData.practicalLight)o.visible=false;if(o.userData.practicalLight)return;if(o.material?.emissive)o.material.emissive.setHex(0);if(o.isInstancedMesh&&o.count===280)o.material.color.setHex(0x77766b);if(o.isInstancedMesh&&o.count===220&&(p.id%6===0||p.id%6===5))o.visible=false;});
  const terrainColors=[0x65734b,0xabb8be,0x64564b,0x777274,0xb3a17a,0x68796b];
  groundTerrain.material.dispose();groundTerrain.material=new THREE.MeshStandardMaterial({color:terrainColors[p.id%6],roughness:1});
  groundTerrain.material.onBeforeCompile=s=>{s.vertexShader='varying vec3 terrainPoint;\n'+s.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\nterrainPoint=position;');s.fragmentShader='varying vec3 terrainPoint;\n'+noiseGLSL+'\n'+s.fragmentShader.replace('#include <color_fragment>','#include <color_fragment>\ndiffuseColor.rgb*=.82+fbm(terrainPoint*.035)*.34+noise(terrainPoint*1.5)*.035;');};
